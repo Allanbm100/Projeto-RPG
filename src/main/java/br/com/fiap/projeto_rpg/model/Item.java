@@ -3,14 +3,22 @@ package br.com.fiap.projeto_rpg.model;
 import java.math.BigDecimal;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Item {
@@ -22,10 +30,15 @@ public class Item {
     @NotBlank(message = "Nome é obrigatório")
     public String nome;
 
-    public String tipo;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    public ItemTipo tipo;
 
-    public String raridade;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    public ItemRaridade raridade;
 
+    @Min(value = 0)
     public BigDecimal preco;
 
     public Personagem dono;
@@ -46,19 +59,19 @@ public class Item {
         this.nome = nome;
     }
 
-    public String getTipo() {
+    public ItemTipo getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(ItemTipo tipo) {
         this.tipo = tipo;
     }
 
-    public String getRaridade() {
+    public ItemRaridade getRaridade() {
         return raridade;
     }
 
-    public void setRaridade(String raridade) {
+    public void setRaridade(ItemRaridade raridade) {
         this.raridade = raridade;
     }
 
@@ -83,4 +96,5 @@ public class Item {
         return "Item [id=" + id + ", nome=" + nome + ", tipo=" + tipo + ", raridade=" + raridade + ", preco=" + preco
                 + ", dono=" + dono + "]";
     }
+
 }

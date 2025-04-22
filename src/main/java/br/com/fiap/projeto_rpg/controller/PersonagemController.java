@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-@RequestMapping("/personagens")
+@RequestMapping("/personagem")
 public class PersonagemController {
 
     @Autowired

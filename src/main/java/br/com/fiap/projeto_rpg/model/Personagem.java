@@ -3,16 +3,23 @@ package br.com.fiap.projeto_rpg.model;
 import java.math.BigDecimal;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Personagem {
@@ -24,7 +31,9 @@ public class Personagem {
     @NotBlank(message = "Nome é obrigatório")
     public String nome;
 
-    public String classe;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    public PersonagemClasse classe;
 
     @Min(value = 1)
     @Max(value = 99)
@@ -33,12 +42,12 @@ public class Personagem {
     @Min(value = 0)
     public BigDecimal moedas;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -49,11 +58,11 @@ public class Personagem {
         this.nome = nome;
     }
 
-    public String getClasse() {
+    public PersonagemClasse getClasse() {
         return classe;
     }
 
-    public void setClasse(String classe) {
+    public void setClasse(PersonagemClasse classe) {
         this.classe = classe;
     }
 
@@ -75,7 +84,8 @@ public class Personagem {
 
     @Override
     public String toString() {
-        return "personagem [id=" + id + ", nome=" + nome + ", classe=" + classe + ", nivel=" + nivel + ", moedas="
+        return "Personagem [id=" + id + ", nome=" + nome + ", classe=" + classe + ", nivel=" + nivel + ", moedas="
                 + moedas + "]";
     }
+
 }
